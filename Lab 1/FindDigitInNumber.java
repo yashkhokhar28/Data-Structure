@@ -11,10 +11,16 @@ public class FindDigitInNumber{
 		}
 	}
 	public static void main(String[] args) {
+		System.out.println("Enter A Number : ");
 		Scanner sc = new Scanner(System.in);
-		int a;
 		int n = sc.nextInt();
-		a = countDigit(n);
-		System.out.println(a);
+		if (n==0) {
+			System.out.println("Digits In Number Is : 1");
+		}
+		else{
+			int a;
+			a = countDigit(n);
+			System.out.println("Digits In Number Is : "+a);
+		}
 	}
 }
