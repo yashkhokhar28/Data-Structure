@@ -10,12 +10,12 @@ class Eval_Postfix {
             System.out.println("Stack Overflow");
         } else {
             top++;
-            n = arr1[top];
+            arr1[top] = n;
         }
     }
 
     public int pop() {
-        if (top < 0) {
+        if (top < -1) {
             System.out.println("Stack Underflow");
         }
         return arr1[top--];
@@ -25,12 +25,12 @@ class Eval_Postfix {
 
         for (int i = 0; i < Postfix.length(); i++) {
             char n = Postfix.charAt(i);
-            if (Character.isLetter(n)) {
-                e1.push(n);
+            if (Character.isDigit(n)) {
+                int m = (int) n - 48;
+                e1.push(m);
             } else {
                 int value1 = e1.pop();
                 int value2 = e1.pop();
-
                 switch (n) {
                     case '+':
                         e1.push(value1 + value2);
