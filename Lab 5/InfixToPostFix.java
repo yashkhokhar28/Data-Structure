@@ -1,83 +1,83 @@
 
-import java.util.*;
-import java.io.*;
+// Implement a program to convert in-fix notation to post-fix notation using stack.
+import java.util.Scanner;
+import java.util.Stack;
 
 public class InfixToPostFix {
-    static InfixToPostFix i1 = new InfixToPostFix();
+
+    public static int InputPrecedence(char ch) {
+        if (ch == '+' || ch == '-')
+            return 1;
+        else if (ch == '*' || ch == '/')
+            return 3;
+        else if (ch == '^')
+            return 6;
+        else if (ch >= 'a' && ch <= 'z')
+            return 7;
+        else if (ch == '(')
+            return 9;
+        else if (ch == ')')
+            return 0;
+        return -1;
+    }
+
+    public static int StackPrecedence(char ch) {
+        if (ch == '+' || ch == '-')
+            return 2;
+        else if (ch == '*' || ch == '/')
+            return 4;
+        else if (ch == '^')
+            return 5;
+        else if (ch >= 'a' && ch <= 'z')
+            return 7;
+        else if (ch == '(')
+            return 0;
+        return -1;
+    }
+
+    public static int Rank(char ch) {
+        if (ch >= 'a' && ch <= 'z')
+            return 1;
+        return -1;
+    }
 
     public static void main(String[] args) {
-        System.out.println("Enter a Infix String : ");
+
         Scanner sc = new Scanner(System.in);
-        String infix = sc.nextLine();
-        System.out.println("PostFix Expression : " + i1.ItoP(infix));
-    }
+        System.out.println("Enter a Infix String : ");
+        String Str = sc.next();
+        Str = Str.toLowerCase();
+        Str += ")";
 
-    char[] arr1 = new char[100];
-    static int top = -1;
+        Stack<Character> stack = new Stack<Character>();
+        stack.push('(');
 
-    public void push(char n) {
-        if (top >= 100) {
-            System.out.println("STACK OVERFLOW");
-        }
-        top++;
-        arr1[top]=n;
-    }
+        String Polish = "";
+        int Rank = 0;
 
-    public char pop() {
-        if (top == -1) {
-            System.out.println("STACK UNDERFLOW");
-            return 0;
-        }
-        return arr1[top--];
-    }
-
-    public char peek() {
-        if (top <= -1) {
-            System.out.println("STACK UNDERFLOW");
-            return 0;
-        }
-        return arr1[top];
-    }
-
-    public int SetPrecedenc(char ch) {
-        switch (ch) {
-            case '+':
-            case '-':
-                return 1;
-            case '*':
-            case '/':
-                return 2;
-            case '^':
-                return 3;
-        }
-        return ch;
-    }
-
-    public String ItoP(String infix) {
-        char symobl;
-        String PostFix = "";
-        for (int i = 0; i < infix.length();i++) {
-            symobl = infix.charAt(i);
-            if (Character.isLetter(symobl)) {
-                PostFix += symobl;
-            } else if (symobl == '(') {
-                i1.push(symobl);
-            } else if (symobl == ')') {
-                while (i1.peek() != '(') {
-                    PostFix += pop();
-                }
-                i1.pop();
-            } else {
-                while (top != -1 && !(i1.peek() == '(') && SetPrecedenc(symobl) <= SetPrecedenc(i1.peek())) 
-                    PostFix += i1.pop();
-                    i1.push(symobl);
+        for (int i = 0; i < Str.length(); i++) {
+            char next = Str.charAt(i);
+            while (StackPrecedence(stack.peek()) > InputPrecedence(next)) {
+                char temp = stack.pop();
+                Polish += temp;
+                Rank += Rank(temp);
+                if (Rank < 0) {
+                    System.out.println("Invalid");
+                    break;
                 }
             }
-        
-        while (top != -1) {
-            PostFix += i1.pop();
-        }
-        return PostFix;
-    }
 
+            if (StackPrecedence(stack.peek()) != InputPrecedence(next))
+                stack.push(next);
+            else
+                stack.pop();
+
+        }
+        if (Rank != 1 || !stack.empty())
+            System.out.println("Invalid String ");
+        else
+            System.out.println("Valid String");
+        System.out.println("Postfix  " + Polish);
+        sc.close();
+    }
 }
