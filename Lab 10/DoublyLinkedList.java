@@ -38,7 +38,7 @@ class List{
 		}
 	
 }
-public class DLL{
+public class DoublyLinkedList{
 	public static void main(String[] args) {
 		List li = new List();
 		Scanner sc = new Scanner(System.in);
