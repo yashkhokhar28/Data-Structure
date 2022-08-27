@@ -36,10 +36,10 @@ class Queue {
         } else {
             System.out.print("Nodes of linked list: ");
             while (temp.next != null) {
-                System.out.print("[" + temp.data + "] ");
+                System.out.print(temp.data + " -> ");
                 temp = temp.next;
             }
-            System.out.println("[" + temp.data + "] ");
+            System.out.println(temp.data + " -> ");
         }
     }
 
@@ -72,4 +72,3 @@ class Queue {
         }
     }
 }
-
