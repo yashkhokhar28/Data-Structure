@@ -33,15 +33,14 @@ class List {
             return;
         }
         if (head == currentNode) {
-            System.out.print("[" + head.data + "]");
+            System.out.print(head.data + " -> ");
             return;
         }
         Node temp = head;
         do {
-            System.out.print("[" + temp.data + "] ");
+            System.out.print(temp.data + " -> ");
             temp = temp.next;
         } while (temp != head);
-        System.out.println();
     }
 
     public void insertFirst(int a) {
