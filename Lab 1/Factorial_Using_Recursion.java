@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Factorial_Using_Recursion{
 	public static int calculateFactor(int n){
