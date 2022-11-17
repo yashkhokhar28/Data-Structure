@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Fatorial_Using_Loop{
 	public static void main(String[] args) {
